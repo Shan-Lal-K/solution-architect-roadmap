@@ -1,0 +1,35 @@
+01	CS Fundamentals I	Data structures, Big-O, memory model	Foundations
+02	CS Fundamentals II	Algorithms, recursion, concurrency primitives	Foundations
+03	Operating Systems	Processes, scheduling, paging, I/O	Foundations
+04	Networking Fundamentals	TCP/IP, DNS, HTTP/2/3, TLS, load balancers, CDN	Foundations
+05	Software Engineering Principles	SOLID, GoF patterns, Clean Architecture, DDD intro	Foundations
+06	Architecture Styles	Monolith vs microservices vs serverless vs event-driven	Architecture Core
+07	Domain-Driven Design	Bounded contexts, aggregates, ubiquitous language	Architecture Core
+08	API Design	REST maturity, GraphQL, gRPC, contract-first design	Architecture Core
+09	System Design I	Scalability patterns, load balancing, CAP theorem	Architecture Core
+10	System Design II	End-to-end walkthrough (e.g. checkout system)	Architecture Core
+11	DB Architecture Fundamentals	RDBMS vs NoSQL, ACID vs BASE	Data & Persistence
+12	SQL Server Deep Dive I	Indexing, execution plans, isolation levels	Data & Persistence
+13	SQL Server Deep Dive II	Backup/restore, Always On, deadlocks, DBA tuning	Data & Persistence
+14	NoSQL & Polyglot Persistence	Cosmos DB, Redis, Cassandra — when to use which	Data & Persistence
+15	Caching Architecture	Cache-aside, write-through/behind, invalidation	Data & Persistence
+16	Messaging & Event-Driven Architecture	Kafka vs Service Bus, event sourcing, CQRS	Data & Persistence
+17	Distributed Systems I	Consistency models, consensus, Saga pattern	Distributed & Cloud
+18	Distributed Systems II	Circuit breakers, retries, bulkheads, timeouts	Distributed & Cloud
+19	Azure Fundamentals	Core services map, Well-Architected Framework	Distributed & Cloud
+20	Azure Compute	App Service, Functions, VM Scale Sets, AKS	Distributed & Cloud
+21	Azure Data & Integration	Azure SQL, Cosmos DB, Event Grid, APIM	Distributed & Cloud
+22	Docker Deep Dive	Images, layers, Dockerfile best practices	Distributed & Cloud
+23	Kubernetes I	Control plane, Pods, Deployments, Services	Distributed & Cloud
+24	Kubernetes II	Ingress, Helm, HPA/VPA, service mesh intro	Distributed & Cloud
+25	CI/CD Pipelines	Azure DevOps/GitHub Actions, branching strategy	DevOps & Infra
+26	Infrastructure as Code	Bicep, Terraform, drift detection	DevOps & Infra
+27	Windows Server & IIS	App pools, w3wp.exe, IIS logs, Kestrel + reverse proxy	DevOps & Infra
+28	Linux Essentials	systemd, permissions, shell scripting, log locations	DevOps & Infra
+29	Authentication & Authorization	OAuth2, OIDC, JWT internals, Entra ID	Security
+30	Security Architecture & Governance	OWASP Top 10, STRIDE, Zero Trust, compliance	Security
+31	Testing Strategy	Test pyramid, TDD/BDD, contract testing	Quality & Ops
+32	Observability & Monitoring	OpenTelemetry, App Insights, SLI/SLO/SLA	Quality & Ops
+33	Performance, HA/DR & Cost	Load testing, RTO/RPO, FinOps basics	Quality & Ops
+34	Frontend & Polyglot Backend	Angular/React/micro-frontends, BFF, stack trade-offs	Multi-Stack
+35	AI System Architecture	LLM fundamentals, RAG, vector DBs, agents, MLOps/LLMOps	AI Capstone

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Architect + AI — Master Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A1F2E;
+    --bg-panel: #0D2739;
+    --bg-panel-2: #0F2E42;
+    --line: #4FC3D9;
+    --line-dim: rgba(79,195,217,0.28);
+    --line-faint: rgba(79,195,217,0.12);
+    --paper: #E8F4F8;
+    --muted: #82A5B4;
+    --accent: #FF7A52;
+    --accent-dim: rgba(255,122,82,0.15);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--line-faint) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line-faint) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--line);}
+
+  .sheet-frame{
+    max-width:1180px;
+    margin:24px auto;
+    padding:0 20px 80px;
+    position:relative;
+  }
+
+  /* corner registration marks */
+  .reg{
+    position:fixed;
+    width:22px;height:22px;
+    border:1.5px solid var(--line-dim);
+    z-index:5;
+    pointer-events:none;
+  }
+  .reg::before, .reg::after{
+    content:"";
+    position:absolute;
+    background:var(--line-dim);
+  }
+  .reg::before{ width:100%; height:1px; top:50%; left:0; }
+  .reg::after{ width:1px; height:100%; left:50%; top:0; }
+  .reg.tl{ top:14px; left:14px; }
+  .reg.tr{ top:14px; right:14px; }
+  .reg.bl{ bottom:14px; left:14px; }
+  .reg.br{ bottom:14px; right:14px; }
+
+  /* TITLE BLOCK */
+  .titleblock{
+    border:1px solid var(--line-dim);
+    margin-top:56px;
+    display:grid;
+    grid-template-columns: 1.6fr 1fr;
+  }
+  .tb-main{
+    padding:32px 28px;
+    border-right:1px solid var(--line-dim);
+  }
+  .tb-eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--line);
+  }
+  .tb-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px, 5vw, 46px);
+    line-height:1.05;
+    margin:10px 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .tb-title span{color:var(--accent);}
+  .tb-sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:56ch;
+    margin-top:8px;
+  }
+  .tb-meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .tb-meta-cell{
+    padding:16px 20px;
+    border-bottom:1px solid var(--line-dim);
+  }
+  .tb-meta-cell:nth-child(odd){ border-right:1px solid var(--line-dim); }
+  .tb-meta-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:4px;
+  }
+  .tb-meta-val{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--paper);
+  }
+
+  @media (max-width:720px){
+    .titleblock{grid-template-columns:1fr;}
+    .tb-main{border-right:none; border-bottom:1px solid var(--line-dim);}
+  }
+
+  /* PHASE KEY / LEGEND */
+  .legend{
+    margin-top:40px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .legend-item{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid var(--line-dim);
+    padding:6px 10px;
+    color:var(--muted);
+  }
+  .legend-dot{width:8px;height:8px;border-radius:50%;flex:none;}
+
+  /* SPINE */
+  .spine-wrap{
+    position:relative;
+    margin-top:60px;
+  }
+  .spine-line{
+    position:absolute;
+    left:24px;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:repeating-linear-gradient(to bottom, var(--line) 0 6px, transparent 6px 12px);
+  }
+  @media (min-width:860px){
+    .spine-line{ left:50%; }
+  }
+
+  /* PHASE SHEET */
+  .phase{
+    position:relative;
+    padding:0 0 0 56px;
+    margin-bottom:72px;
+  }
+  @media (min-width:860px){
+    .phase{ padding-left:0; }
+  }
+
+  .phase-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .phase-node{
+    position:absolute;
+    left:-56px;
+    top:2px;
+    width:14px;height:14px;
+    border:2px solid var(--bg);
+    outline:1.5px solid var(--line);
+    background:var(--bg);
+    border-radius:2px;
+  }
+  @media (min-width:860px){
+    .phase-node{ left:calc(50% - 7px); }
+  }
+
+  .phase-sheetno{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:.1em;
+  }
+  .phase-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(20px,3vw,26px);
+  }
+  .phase-days{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--line);
+    margin-left:auto;
+    white-space:nowrap;
+  }
+
+  .day-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:12px;
+  }
+  @media (min-width:860px){
+    /* alternate phases left/right of spine on wide screens */
+    .phase:nth-of-type(odd) .day-grid{ margin-right:52%; }
+    .phase:nth-of-type(even) .day-grid{ margin-left:52%; }
+  }
+
+  .day-card{
+    border:1px solid var(--line-dim);
+    background:var(--bg-panel);
+    padding:14px 16px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .day-card:hover{
+    border-color:var(--line);
+    background:var(--bg-panel-2);
+  }
+  .day-num{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:.08em;
+  }
+  .day-topic{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    margin-top:4px;
+    line-height:1.3;
+  }
+  .day-note{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:6px;
+    line-height:1.4;
+  }
+
+  /* AI capstone highlight */
+  .day-card.ai{
+    border-color:var(--accent);
+    background:linear-gradient(180deg, var(--accent-dim), var(--bg-panel));
+  }
+  .day-card.ai .day-num{color:var(--accent);}
+
+  /* ADVANCED SECTION */
+  .advanced{
+    margin-top:20px;
+    border-top:1px dashed var(--line-dim);
+    padding-top:56px;
+  }
+  .advanced-head{
+    text-align:center;
+    margin-bottom:44px;
+  }
+  .advanced-eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .advanced-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(24px,4vw,36px);
+    margin:8px 0;
+  }
+  .advanced-sub{color:var(--muted); max-width:60ch; margin:0 auto; font-size:14.5px;}
+
+  .adv-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:16px;
+  }
+  .adv-card{
+    border:1px solid var(--line-dim);
+    padding:20px;
+    position:relative;
+  }
+  .adv-letter{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--line);
+    letter-spacing:.1em;
+  }
+  .adv-name{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:16px;
+    margin:8px 0 10px;
+  }
+  .adv-list{
+    margin:0;
+    padding-left:16px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+  }
+  .adv-card.capstone{
+    border-color:var(--accent);
+    grid-column:1/-1;
+    background:var(--accent-dim);
+  }
+
+  /* RULES OF ENGAGEMENT */
+  .rules{
+    margin-top:70px;
+    border:1px solid var(--line-dim);
+    padding:28px;
+  }
+  .rules-title{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--line);
+    margin-bottom:16px;
+  }
+  .rules ol{
+    margin:0;
+    padding-left:20px;
+    font-size:14px;
+    color:var(--paper);
+  }
+  .rules li{ margin-bottom:10px; }
+  .rules li::marker{ font-family:var(--font-mono); color:var(--accent); }
+
+  /* CTA */
+  .cta{
+    margin-top:56px;
+    text-align:center;
+    padding:44px 20px;
+    border:1px solid var(--accent);
+    position:relative;
+  }
+  .cta-stamp{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    padding:4px 10px;
+    transform:rotate(-2deg);
+    margin-bottom:14px;
+  }
+  .cta-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(22px,3.6vw,30px);
+    margin:0 0 10px;
+  }
+  .cta-sub{color:var(--muted); font-size:14px;}
+  .cta code{
+    font-family:var(--font-mono);
+    background:var(--bg-panel);
+    border:1px solid var(--line-dim);
+    padding:3px 8px;
+    color:var(--paper);
+  }
+
+  footer{
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--muted);
+    margin-top:50px;
+    letter-spacing:.08em;
+  }
+</style>
+</head>
+<body>
+
+<div class="reg tl"></div>
+<div class="reg tr"></div>
+<div class="reg bl"></div>
+<div class="reg br"></div>
+
+<div class="sheet-frame">
+
+  <div class="titleblock">
+    <div class="tb-main">
+      <span class="tb-eyebrow">DWG NO. SA-AI-001 &nbsp;·&nbsp; TRAINING SCHEMATIC</span>
+      <h1 class="tb-title">Solution Architect <span>+ AI</span></h1>
+      <p class="tb-sub">A 35-day core build, followed by an Advanced track toward Principal Engineer / Enterprise Architect. Stack-agnostic core, .NET home base, AI as a first-class discipline.</p>
+    </div>
+    <div class="tb-meta">
+      <div class="tb-meta-cell"><span class="tb-meta-label">Scale</span><span class="tb-meta-val">Beginner → Architect</span></div>
+      <div class="tb-meta-cell"><span class="tb-meta-label">Pace</span><span class="tb-meta-val">1 day / session</span></div>
+      <div class="tb-meta-cell"><span class="tb-meta-label">Base Stack</span><span class="tb-meta-val">.NET · SQL Server · Angular</span></div>
+      <div class="tb-meta-cell"><span class="tb-meta-label">Rev.</span><span class="tb-meta-val">A — Core + Advanced</span></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--line)"></span>CORE TRACK — DAYS 1–35</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>AI-FOCUSED UNIT</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--muted)"></span>ADVANCED / PRINCIPAL TRACK</div>
+  </div>
+
+  <div class="spine-wrap">
+    <div class="spine-line"></div>
+
+    <!-- PHASE 0 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 01/09</span>
+        <span class="phase-title">Foundations</span>
+        <span class="phase-days">DAYS 1–5</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 01</div><div class="day-topic">CS Fundamentals I</div><div class="day-note">Data structures, Big-O, memory model</div></div>
+        <div class="day-card"><div class="day-num">DAY 02</div><div class="day-topic">CS Fundamentals II</div><div class="day-note">Algorithms, recursion, concurrency primitives</div></div>
+        <div class="day-card"><div class="day-num">DAY 03</div><div class="day-topic">Operating Systems</div><div class="day-note">Processes, scheduling, paging, I/O</div></div>
+        <div class="day-card"><div class="day-num">DAY 04</div><div class="day-topic">Networking Fundamentals</div><div class="day-note">TCP/IP, DNS, HTTP/2/3, TLS, LBs, CDN</div></div>
+        <div class="day-card"><div class="day-num">DAY 05</div><div class="day-topic">SE Principles</div><div class="day-note">SOLID, GoF patterns, Clean Architecture, DDD intro</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 02/09</span>
+        <span class="phase-title">Architecture Core</span>
+        <span class="phase-days">DAYS 6–10</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 06</div><div class="day-topic">Architecture Styles</div><div class="day-note">Monolith vs microservices vs serverless vs event-driven</div></div>
+        <div class="day-card"><div class="day-num">DAY 07</div><div class="day-topic">Domain-Driven Design</div><div class="day-note">Bounded contexts, aggregates, ubiquitous language</div></div>
+        <div class="day-card"><div class="day-num">DAY 08</div><div class="day-topic">API Design</div><div class="day-note">REST maturity, GraphQL, gRPC, contract-first</div></div>
+        <div class="day-card"><div class="day-num">DAY 09</div><div class="day-topic">System Design I</div><div class="day-note">Scalability patterns, load balancing, CAP theorem</div></div>
+        <div class="day-card"><div class="day-num">DAY 10</div><div class="day-topic">System Design II</div><div class="day-note">End-to-end walkthrough (e.g. checkout system)</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 03/09</span>
+        <span class="phase-title">Data & Persistence</span>
+        <span class="phase-days">DAYS 11–16</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 11</div><div class="day-topic">DB Architecture Fundamentals</div><div class="day-note">RDBMS vs NoSQL, ACID vs BASE</div></div>
+        <div class="day-card"><div class="day-num">DAY 12</div><div class="day-topic">SQL Server Deep Dive I</div><div class="day-note">Indexing, execution plans, isolation levels</div></div>
+        <div class="day-card"><div class="day-num">DAY 13</div><div class="day-topic">SQL Server Deep Dive II</div><div class="day-note">Backup/restore, Always On, deadlocks, DBA tuning</div></div>
+        <div class="day-card"><div class="day-num">DAY 14</div><div class="day-topic">NoSQL & Polyglot Persistence</div><div class="day-note">Cosmos DB, Redis, Cassandra — when to use which</div></div>
+        <div class="day-card"><div class="day-num">DAY 15</div><div class="day-topic">Caching Architecture</div><div class="day-note">Cache-aside, write-through/behind, invalidation</div></div>
+        <div class="day-card"><div class="day-num">DAY 16</div><div class="day-topic">Messaging & EDA</div><div class="day-note">Kafka vs Service Bus, event sourcing, CQRS</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 04/09</span>
+        <span class="phase-title">Distributed Systems & Cloud</span>
+        <span class="phase-days">DAYS 17–24</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 17</div><div class="day-topic">Distributed Systems I</div><div class="day-note">Consistency models, consensus, Saga pattern</div></div>
+        <div class="day-card"><div class="day-num">DAY 18</div><div class="day-topic">Distributed Systems II</div><div class="day-note">Circuit breakers, retries, bulkheads, timeouts</div></div>
+        <div class="day-card"><div class="day-num">DAY 19</div><div class="day-topic">Azure Fundamentals</div><div class="day-note">Core services map, Well-Architected Framework</div></div>
+        <div class="day-card"><div class="day-num">DAY 20</div><div class="day-topic">Azure Compute</div><div class="day-note">App Service, Functions, VMSS, AKS</div></div>
+        <div class="day-card"><div class="day-num">DAY 21</div><div class="day-topic">Azure Data & Integration</div><div class="day-note">Azure SQL, Cosmos DB, Event Grid, APIM</div></div>
+        <div class="day-card"><div class="day-num">DAY 22</div><div class="day-topic">Docker Deep Dive</div><div class="day-note">Images, layers, Dockerfile best practices</div></div>
+        <div class="day-card"><div class="day-num">DAY 23</div><div class="day-topic">Kubernetes I</div><div class="day-note">Control plane, Pods, Deployments, Services</div></div>
+        <div class="day-card"><div class="day-num">DAY 24</div><div class="day-topic">Kubernetes II</div><div class="day-note">Ingress, Helm, HPA/VPA, service mesh intro</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 05/09</span>
+        <span class="phase-title">DevOps, Infra & Platform</span>
+        <span class="phase-days">DAYS 25–28</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 25</div><div class="day-topic">CI/CD Pipelines</div><div class="day-note">Azure DevOps/GitHub Actions, branching strategy</div></div>
+        <div class="day-card"><div class="day-num">DAY 26</div><div class="day-topic">Infrastructure as Code</div><div class="day-note">Bicep, Terraform, drift detection</div></div>
+        <div class="day-card"><div class="day-num">DAY 27</div><div class="day-topic">Windows Server & IIS</div><div class="day-note">App pools, w3wp.exe, IIS logs, Kestrel + reverse proxy</div></div>
+        <div class="day-card"><div class="day-num">DAY 28</div><div class="day-topic">Linux Essentials</div><div class="day-note">systemd, permissions, shell scripting, log locations</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 06/09</span>
+        <span class="phase-title">Security Architecture</span>
+        <span class="phase-days">DAYS 29–30</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 29</div><div class="day-topic">AuthN & AuthZ</div><div class="day-note">OAuth2, OIDC, JWT internals, Entra ID</div></div>
+        <div class="day-card"><div class="day-num">DAY 30</div><div class="day-topic">Security & Governance</div><div class="day-note">OWASP Top 10, STRIDE, Zero Trust, compliance</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 07/09</span>
+        <span class="phase-title">Quality, Observability & Resilience</span>
+        <span class="phase-days">DAYS 31–33</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 31</div><div class="day-topic">Testing Strategy</div><div class="day-note">Test pyramid, TDD/BDD, contract testing</div></div>
+        <div class="day-card"><div class="day-num">DAY 32</div><div class="day-topic">Observability</div><div class="day-note">OpenTelemetry, App Insights, SLI/SLO/SLA</div></div>
+        <div class="day-card"><div class="day-num">DAY 33</div><div class="day-topic">Performance, HA/DR, Cost</div><div class="day-note">Load testing, RTO/RPO, FinOps basics</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 7 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 08/09</span>
+        <span class="phase-title">Multi-Stack & Frontend</span>
+        <span class="phase-days">DAY 34</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-num">DAY 34</div><div class="day-topic">Frontend & Polyglot Backend</div><div class="day-note">Angular/React/micro-frontends, BFF, .NET vs Java vs Node vs Python trade-offs</div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 8 -->
+    <div class="phase">
+      <div class="phase-node"></div>
+      <div class="phase-head">
+        <span class="phase-sheetno">SHEET 09/09</span>
+        <span class="phase-title">AI for Solution Architects</span>
+        <span class="phase-days">DAY 35 — CAPSTONE</span>
+      </div>
+      <div class="day-grid">
+        <div class="day-card ai"><div class="day-num">DAY 35</div><div class="day-topic">AI System Architecture</div><div class="day-note">LLM fundamentals, RAG, vector DBs, agents, MLOps/LLMOps, where AI fits in enterprise architecture</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ADVANCED TRACK -->
+  <div class="advanced">
+    <div class="advanced-head">
+      <span class="advanced-eyebrow">Post Day-35 · No Fixed Duration</span>
+      <h2 class="advanced-title">Advanced Track — Principal Engineer / Enterprise Architect</h2>
+      <p class="advanced-sub">Scope shifts from "new technology" to organizational judgment, trade-off ownership, and influence.</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <span class="adv-letter">PHASE A</span>
+        <div class="adv-name">EA Frameworks & Governance</div>
+        <ul class="adv-list">
+          <li>TOGAF / Zachman — what to actually use</li>
+          <li>EA vs Solution vs Technical Architecture scope</li>
+          <li>ADRs, review boards, RFC process</li>
+        </ul>
+      </div>
+      <div class="adv-card">
+        <span class="adv-letter">PHASE B</span>
+        <div class="adv-name">Deep Distributed Systems</div>
+        <ul class="adv-list">
+          <li>Event sourcing & CQRS at scale</li>
+          <li>Strategic DDD, anti-corruption layers</li>
+          <li>Multi-region/cloud, chaos engineering</li>
+        </ul>
+      </div>
+      <div class="adv-card">
+        <span class="adv-letter">PHASE C</span>
+        <div class="adv-name">Platform Engineering</div>
+        <ul class="adv-list">
+          <li>Internal Developer Platforms, golden paths</li>
+          <li>Service mesh & gateway strategy at org scale</li>
+          <li>Build-vs-buy, tech debt quantification</li>
+        </ul>
+      </div>
+      <div class="adv-card">
+        <span class="adv-letter">PHASE D</span>
+        <div class="adv-name">FinOps & Cost Governance</div>
+        <ul class="adv-list">
+          <li>Multi-team cost allocation, showback/chargeback</li>
+          <li>Reserved instance strategy at portfolio level</li>
+          <li>Cost-aware architecture reviews</li>
+        </ul>
+      </div>
+      <div class="adv-card">
+        <span class="adv-letter">PHASE E</span>
+        <div class="adv-name">AI Platform Architecture</div>
+        <ul class="adv-list">
+          <li>Model gateway, guardrails, eval pipelines</li>
+          <li>Responsible AI & governance (EU AI Act aware)</li>
+          <li>Build-vs-buy for AI, self-hosted vs API</li>
+        </ul>
+      </div>
+      <div class="adv-card">
+        <span class="adv-letter">PHASE F</span>
+        <div class="adv-name">Leadership & Influence</div>
+        <ul class="adv-list">
+          <li>Architecture strategy docs, tech radars</li>
+          <li>Stakeholder management, influence w/o authority</li>
+          <li>Mentoring engineers into architects</li>
+        </ul>
+      </div>
+      <div class="adv-card capstone">
+        <span class="adv-letter">PHASE G — CAPSTONE</span>
+        <div class="adv-name">End-to-End Enterprise Design</div>
+        <ul class="adv-list">
+          <li>Design a complete enterprise system: multi-region, secure, observable, cost-optimized, AI-augmented</li>
+          <li>Full documentation set: ADRs + diagrams</li>
+          <li>Mock architecture review board defense</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules">
+    <div class="rules-title">How We Work — Day by Day</div>
+    <ol>
+      <li>I teach <strong>one day fully</strong> — all 18 dimensions: what/why/when/internals, enterprise example, pros/cons, mistakes, best practices, performance, security, prod deployment, monitoring, troubleshooting, lab, mini-project, interview Qs, cheat sheet, summary.</li>
+      <li>You complete the hands-on lab and mini-project before moving on.</li>
+      <li>You confirm when ready — say <em>"next day"</em>, or ask to slow down / go deeper on anything.</li>
+      <li>No day is skipped or compressed, even where a topic feels familiar from your .NET/Angular background.</li>
+    </ol>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <span class="cta-stamp">Ready for Review</span>
+    <div class="cta-title">Say "Start Day 1" to break ground.</div>
+    <div class="cta-sub">We begin at <code>DAY 01 — Data Structures, Big-O & Memory Model</code>, built from zero assumptions.</div>
+  </div>
+
+  <footer>SA-AI-001 — REV A — DRAWN BY CLAUDE — NOT FOR CONSTRUCTION WITHOUT REVIEW</footer>
+
+</div>
+</body>
+</html>
